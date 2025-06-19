@@ -4,12 +4,15 @@
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{enumitem}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{ragged2e}
 \usepackage{float}
 \titleformat{\section}[block]{\large\bfseries}{\thesection.}{0.5em}{}
 \titleformat{\subsection}[block]{\normalsize\bfseries}{\thesubsection.}{0.5em}{}
 
 
-\title{Software Requirements Specification\\\large\textbf{Mavito Multilingual Terminology PWA}}
+\title{Software Requirements Specification\\\large\textbf{Marito Multilingual Terminology PWA}}
 \author{Team Name: Velox}
 \date{\today}
 
@@ -21,10 +24,10 @@
 
 \section{Introduction}
 \subsection{Purpose}
-The purpose of this document is to define the software requirements of the Mavito system, a multilingual terminology web application developed as part of the COS 301 Capstone project at the University of Pretoria. This document is intended to guide the development team, ensure alignment with client expectations, and serve as a reference for future maintenance, testing, and extension of the platform.
+The purpose of this document is to define the software requirements of the Marito system, a multilingual terminology web application developed as part of the COS 301 Capstone project at the University of Pretoria. This document is intended to guide the development team, ensure alignment with client expectations, and serve as a reference for future maintenance, testing, and extension of the platform.
 
 \subsection{Scope}
-Mavito is a multilingual, progressive web application (PWA) designed to provide users with access to curated statistical terminology in all 11 official South African languages. The system enables users to search and browse glossary terms, submit suggestions, and engage through a gamified contribution model. Mavito supports offline functionality, glossary versioning, contributor uploads, and plugin-based feature extensions including AI-enhanced semantic search and analytics. The system is built using a microkernel-microservices architecture for flexibility, modularity, and future extensibility.
+Marito is a multilingual, progressive web application (PWA) designed to provide users with access to curated statistical terminology in all 11 official South African languages. The system enables users to search and browse glossary terms, submit suggestions, and engage through a gamified contribution model. Marito supports offline functionality, glossary versioning, contributor uploads, and plugin-based feature extensions including AI-enhanced semantic search and analytics. The system is built using a microkernel-microservices architecture for flexibility, modularity, and future extensibility.
 
 \subsection{Intended Audience}
 This document is primarily intended for:
@@ -683,6 +686,14 @@ This section presents the key use case diagrams developed for the Mavito applica
   \label{fig:reg-log-use-case}
 \end{figure}
 
+\subsection{Interface Language Switching Use Case Diagram}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{Interface Language Switching Subsystem.jpg}
+  \caption{Interface Language Switching Use Case Diagram for Mavito}
+  \label{fig:interface-lang-switch-use-case}
+\end{figure}
+
 \subsection{Search Term Use Case Diagram}
 \begin{figure}[H]
   \centering
@@ -727,8 +738,9 @@ This section presents the key use case diagrams developed for the Mavito applica
 The main use cases covered include:
 \begin{itemize}
   \item Browsing and searching multilingual terms
+  \item Interface language switching
   \item Earning contribution points through gamified interactions
-  \item Registration and login ineractions
+  \item Registration and login interactions
   \item User Contributions
   \item User themes
   \item Data visualizations
@@ -1087,9 +1099,132 @@ The Mavito system is built using modern, open-source technologies selected for t
   \item \textbf{Hosting:} GitHub Pages.
 \end{itemize}
 
+\section{Technology Choices}
+Our system is built using a modular microservices architecture, designed for scalability, isolation, and maintainability. We evaluated at least three technology options for each core component before selecting the final stack.
+
+\subsection*{Frontend Framework}
+
+\begin{tabular}{|p{3cm}|p{4cm}|p{4cm}|p{4cm}|}
+\hline
+\textbf{Option} & \textbf{Overview} & \textbf{Pros} & \textbf{Cons} \\
+\hline
+React (Chosen) & Declarative JavaScript library for UIs & Large ecosystem, reusable components, PWA support & Requires setup, JSX learning curve \\
+\hline
+Angular & Full-featured frontend framework & Strong typing, built-in tools, opinionated structure & Heavy, complex, steep learning curve \\
+\hline
+Vue.js & Progressive framework & Lightweight, easy to learn, good docs & Smaller ecosystem for enterprise-scale systems \\
+\hline
+\end{tabular}
+\newline
+\textbf{Justification:} React provides modularity and performance while supporting Progressive Web App (PWA) functionality which is ideal for our offline-first goal. Its community and integration with modern tooling enhance maintainability.
+
+\subsection*{Backend Framework (API Layer)}
+
+\begin{tabular}{|p{3cm}|p{4cm}|p{4cm}|p{4cm}|}
+\hline
+\textbf{Option} & \textbf{Overview} & \textbf{Pros} & \textbf{Cons} \\
+\hline
+FastAPI (Chosen) & Async Python framework for APIs & Very fast, OpenAPI docs, type hinting, async support & Newer, less mature than Django \\
+\hline
+Flask & Minimal WSGI Python web framework & Simple, flexible, lightweight & No async support, more boilerplate \\
+\hline
+Django & Full-stack Python web framework & ORM, admin panel, built-in features & Monolithic, less suitable for microservices \\
+\hline
+\end{tabular}
+\newline
+\textbf{Justification:} FastAPI is a performant async framework with native support for OpenAPI docs and type hinting. It aligns well with our modular design and Python-based data processing.
+
+\subsection*{Backend Language}
+
+\begin{tabular}{|p{3cm}|p{4cm}|p{4cm}|p{4cm}|}
+\hline
+\textbf{Option} & \textbf{Overview} & \textbf{Pros} & \textbf{Cons} \\
+\hline
+Python (Chosen) & General-purpose scripting language & Rich ML/NLP libraries, fast prototyping & Slower runtime compared to compiled languages \\
+\hline
+Go & Compiled systems language & High performance, excellent concurrency support & Verbose, smaller ecosystem for data science \\
+\hline
+Node.js & JS runtime for backend & Unified stack, async by default & Callback complexity, fragmented tooling \\
+\hline
+\end{tabular}
+\newline
+\textbf{Justification:} Python enables rapid development and integrates well with NLP tools like spaCy. Since our AI search requires natural language features, Python is the most suitable choice.
+
+\subsection*{Containerization}
+
+\begin{tabular}{|p{3cm}|p{4cm}|p{4cm}|p{4cm}|}
+\hline
+\textbf{Option} & \textbf{Overview} & \textbf{Pros} & \textbf{Cons} \\
+\hline
+Docker (Chosen) & OS-level virtualization platform & Portable, consistent dev/production environments & Requires setup and Docker knowledge \\
+\hline
+Vagrant & VM-based development tool & OS-level control & Heavyweight, slower than containers \\
+\hline
+Bare Metal & Manual installs & Full flexibility & Not reproducible, error-prone \\
+\hline
+\end{tabular}
+\newline
+\textbf{Justification:} Docker enables reproducible builds, isolates dependencies, and simplifies onboarding. It is essential for deploying and maintaining microservices efficiently.
+
+\subsection*{Summary}
+
+Our technology stack: React, FastAPI with Python, and Docker was chosen for its strong modularity, ease of maintenance, and developer productivity. React enables the creation of responsive, user-friendly interfaces that function seamlessly across all device types. FastAPI offers fast development with built-in validation and documentation, making it ideal for building clean and maintainable APIs. Docker ensures consistent environments across development and production, supporting a scalable microservices architecture. These choices align directly with our goals of building an offline-capable, user-centered platform that is simple to deploy, easy to extend, and reliable across a wide range of usage contexts.
+
+
+
 \section{Service Contracts}
+
+\subsection{API Information}
 \begin{itemize}
-Stub
+    \item \textbf{OpenAPI Version:} 3.1.0
+    \item \textbf{Title:} Marito API Default
+    \item \textbf{Version:} 0.1.0
 \end{itemize}
+
+\subsection{Endpoints Overview}
+
+\begin{longtable}{|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{9cm}|}
+\hline
+\textbf{Endpoint} & \textbf{Description} \\
+\hline
+\endhead
+
+\url{/api/v1/auth/register} (POST) & Register new user. Expects first\_name, last\_name, email, password, and optionally role. Returns user object on success. \\
+\hline
+
+\url{/api/v1/auth/login} (POST) & OAuth2-compatible login. Frontend sends email (username) and password. Returns access token for future requests. \\
+\hline
+
+\url{/api/v1/auth/me} (GET) & Get details of the current logged-in user. Requires OAuth2 bearer token. \\
+\hline
+
+\url{/api/v1/analytics/descriptive} (GET) & Retrieve descriptive analytics summary. \\
+\hline
+
+\url{/api/v1/search/} (GET) & Search endpoint for multilingual terms with optional filters: language, domain, part of speech, sorting, pagination. Returns list of terms and total count. \\
+\hline
+
+\url{/api/v1/suggest/} (GET) & Autocomplete suggestions based on partial search term. Returns up to 10 suggestion objects. \\
+\hline
+
+\url{/} (GET) & Root endpoint. Returns a welcome message and API documentation link. \\
+\hline
+\end{longtable}
+
+\subsection{Schemas Summary}
+\begin{itemize}
+    \item \textbf{User} — Email, first name, last name, role, profile picture, status, timestamps.
+    \item \textbf{UserCreate} — Email, first name, last name, password, optional role.
+    \item \textbf{Token} — Access token and token type.
+    \item \textbf{Suggestion} — ID and label for autocomplete.
+    \item \textbf{ValidationError} — Location, message, and error type.
+    \item \textbf{UserRole Enum} — \texttt{linguist}, \texttt{researcher}, \texttt{contributor}.
+\end{itemize}
+
+\subsection{Security Schemes}
+\begin{itemize}
+    \item \textbf{OAuth2PasswordBearer} — Password flow using \texttt{/api/v1/auth/login}.
+\end{itemize}
+
 
 \end{document}
