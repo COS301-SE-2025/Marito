@@ -92,6 +92,30 @@
     "dashboard": "Ideshibhodi",
     "search": "Sesha",
     "savedTerms": "Amagama Agciniwe",
-    "analytics": "Ukuhlaziya"
+    "analytics": "Ukuhlaziya",
+    "glossary": "Isichazamazwi"
+  },
+  
+  "glossaryPage": {
+    "title": "Isichazamazwi Sezamagama",
+    "searchPlaceholder": "Sesha amagama...",
+    "allCategories": "Zonke Izigaba",
+    "categories": "Izigaba",
+    "details": "Imininingwane Yegama",
+    "showTranslations": "Khombisa Ukuhumusha",
+    "loadingTranslations": "Iyalayisha...",
+    "translations": "Ukuhumusha",
+    "noTranslations": "Akukho ukuhumusha okutholakalayo kweli gama",
+    "selectTerm": "Khetha igama ukuze ubone imininingwane nokuhumusha",
+    "exportData": "Thumela Imininingo",
+    "downloadData": "Landa Imininingwane",
+    "downloadTerms": "Landa amagama esigabeni \"{{category}}\"",
+    "downloadCurrentTerms": "Landa amagama amanje",
+    "downloadSearchResults": "Landa amagama ahambisana no \"{{query}}\"",
+    "items": "izinto",
+    "csvFormat": "Ifomethi ye-CSV",
+    "jsonFormat": "Ifomethi ye-JSON",
+    "htmlTable": "Ithebula le-HTML",
+    "pdfDocument": "Idokhumenti ye-PDF"
   }
 }
