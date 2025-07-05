@@ -1,0 +1,46 @@
+{
+  "appTitle": "Mavito",
+  "loading": "Iyalayisha...",
+
+  "landingPage": {
+    "greeting": "Siyakwamukela ku-Mavito PWA!",
+    "registerButton": "Bhalisa",
+    "loginButton": "Ngena",
+    "footerText": "Iphrojekthi ye-Mavito"
+  },
+
+  "languageSwitcher": {
+    "selectLanguage": "Khetsa Lulwimi"
+  },
+
+  "leftPane": {
+    "dashboard": "Ideshibhodi",
+    "search": "Sesha",
+    "savedTerms": "Emagama Londvololiwe",
+    "analytics": "Kuhlatiyelwa",
+    "glossary": "Isichasiso"
+  },
+  
+  "glossaryPage": {
+    "title": "Isichasiso Setheminoloji",
+    "searchPlaceholder": "Sesha emagama...",
+    "allCategories": "Tonkhe Tigaba",
+    "categories": "Tigaba",
+    "details": "Imininingwane Yeligama",
+    "showTranslations": "Khombisa Kuhumusha",
+    "loadingTranslations": "Iyalayisha...",
+    "translations": "Kuhumusha",
+    "noTranslations": "Kute kuhumusha lokukhona kuleli gama",
+    "selectTerm": "Khetsa ligama kute ubone imininingwane nekuhunyushwa",
+    "exportData": "Thumela Idatha",
+    "downloadData": "Dawuniloda Idatha",
+    "downloadTerms": "Dawuniloda emagama esigabeni \"{{category}}\"",
+    "downloadCurrentTerms": "Dawuniloda emagama amanje",
+    "downloadSearchResults": "Dawuniloda emagama lafana na \"{{query}}\"",
+    "items": "tintfo",
+    "csvFormat": "I-CSV Format",
+    "jsonFormat": "I-JSON Format",
+    "htmlTable": "Lithebula le-HTML",
+    "pdfDocument": "Idokhumenti ye-PDF"
+  }
+}
