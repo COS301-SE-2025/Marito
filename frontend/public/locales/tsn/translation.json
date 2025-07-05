@@ -1,0 +1,46 @@
+{
+  "appTitle": "Mavito",
+  "loading": "E a laisa...",
+
+  "landingPage": {
+    "greeting": "O amogelesegile mo Mavito PWA!",
+    "registerButton": "Ikwadise",
+    "loginButton": "Tsena",
+    "footerText": "Porojeke ya Mavito"
+  },
+
+  "languageSwitcher": {
+    "selectLanguage": "Tlhopha Puo"
+  },
+
+  "leftPane": {
+    "dashboard": "Dasheboto",
+    "search": "Batla",
+    "savedTerms": "Mareo a a Bolokilweng",
+    "analytics": "Tshekatsheko",
+    "glossary": "Thanodi"
+  },
+  
+  "glossaryPage": {
+    "title": "Thanodi ya Mareo",
+    "searchPlaceholder": "Batla mareo...",
+    "allCategories": "Ditlhopha Tsotlhe",
+    "categories": "Ditlhopha",
+    "details": "Dintlha tsa Lereo",
+    "showTranslations": "Bontsha Diphetolelo",
+    "loadingTranslations": "E a laisa...",
+    "translations": "Diphetolelo",
+    "noTranslations": "Ga go na diphetolelo tse di leng teng tsa lereo le",
+    "selectTerm": "Tlhopha lereo go bona dintlha le diphetolelo",
+    "exportData": "Romela Data",
+    "downloadData": "Laisolola Data",
+    "downloadTerms": "Laisolola mareo mo setlhopheng \"{{category}}\"",
+    "downloadCurrentTerms": "Laisolola mareo a ga jaana",
+    "downloadSearchResults": "Laisolola mareo a a tshwanang le \"{{query}}\"",
+    "items": "dilo",
+    "csvFormat": "Popego ya CSV",
+    "jsonFormat": "Popego ya JSON",
+    "htmlTable": "Tafole ya HTML",
+    "pdfDocument": "Tokomane ya PDF"
+  }
+}
