@@ -1,0 +1,46 @@
+{
+  "appTitle": "Mavito",
+  "loading": "Ku layicha...",
+
+  "landingPage": {
+    "greeting": "Hi ku amukela eka Mavito PWA!",
+    "registerButton": "Tsarisa",
+    "loginButton": "Nghena",
+    "footerText": "Phurojeke ya Mavito"
+  },
+
+  "languageSwitcher": {
+    "selectLanguage": "Hlawula Ririmi"
+  },
+
+  "leftPane": {
+    "dashboard": "Dashbhodi",
+    "search": "Lavisisa",
+    "savedTerms": "Matheme lama Hlayisiweke",
+    "analytics": "Nxopaxopo",
+    "glossary": "Xikombo-marito"
+  },
+  
+  "glossaryPage": {
+    "title": "Xikombo-marito xa Theminoloji",
+    "searchPlaceholder": "Lavisisa matheme...",
+    "allCategories": "Tikategori Hinkwato",
+    "categories": "Tikategori",
+    "details": "Vuxokoxoko bya Theme",
+    "showTranslations": "Komba Vuhundzuluxo",
+    "loadingTranslations": "Ku layicha...",
+    "translations": "Vuhundzuluxo",
+    "noTranslations": "Ku hava vuhundzuluxo lebyi nga kona bya theme leri",
+    "selectTerm": "Hlawula theme ku vona vuxokoxoko na vuhundzuluxo",
+    "exportData": "Rhumela Data",
+    "downloadData": "Khandziyisa Data",
+    "downloadTerms": "Khandziyisa matheme eka kategori \"{{category}}\"",
+    "downloadCurrentTerms": "Khandziyisa matheme ya sweswi",
+    "downloadSearchResults": "Khandziyisa matheme lama fanaka na \"{{query}}\"",
+    "items": "swilo",
+    "csvFormat": "Fomati ya CSV",
+    "jsonFormat": "Fomati ya JSON",
+    "htmlTable": "Tafula ra HTML",
+    "pdfDocument": "Dokumente ya PDF"
+  }
+}
