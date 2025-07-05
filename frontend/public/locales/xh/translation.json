@@ -90,6 +90,30 @@
     "dashboard": "Ideshibhodi",
     "search": "Khangela",
     "savedTerms": "Amagama Agciniweyo",
-    "analytics": "Uhlalutyo"
+    "analytics": "Uhlalutyo",
+    "glossary": "Isigama"
+  },
+  
+  "glossaryPage": {
+    "title": "Isigama seMigaqo",
+    "searchPlaceholder": "Khangela amagama...",
+    "allCategories": "Zonke iiKhathegori",
+    "categories": "Iikhathegori",
+    "details": "Iinkcukacha zeTerm",
+    "showTranslations": "Bonisa iiNguqulelo",
+    "loadingTranslations": "Iyalayisha...",
+    "translations": "Iinguqulelo",
+    "noTranslations": "Akukho nguqulelo ziyafumaneka kweli gama",
+    "selectTerm": "Khetha igama ukubona iinkcukacha neenguqulelo",
+    "exportData": "Thumela Idatha",
+    "downloadData": "Khuphela Idatha",
+    "downloadTerms": "Khuphela amagama kwikhathegori \"{{category}}\"",
+    "downloadCurrentTerms": "Khuphela amagama angoku",
+    "downloadSearchResults": "Khuphela amagama afana no \"{{query}}\"",
+    "items": "izinto",
+    "csvFormat": "Ifomathi ye-CSV",
+    "jsonFormat": "Ifomathi ye-JSON",
+    "htmlTable": "Itafile ye-HTML",
+    "pdfDocument": "Uxwebhu lwe-PDF"
   }
 }
