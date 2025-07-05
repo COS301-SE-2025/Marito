@@ -1,0 +1,46 @@
+{
+  "appTitle": "Mavito",
+  "loading": "Iyalayisha...",
+
+  "landingPage": {
+    "greeting": "Siyakwamukela ku-Mavito PWA!",
+    "registerButton": "Bhalisela",
+    "loginButton": "Ngena",
+    "footerText": "Iphrojekthi ye-Mavito"
+  },
+
+  "languageSwitcher": {
+    "selectLanguage": "Khetha Ulimi"
+  },
+
+  "leftPane": {
+    "dashboard": "Ideshibhodi",
+    "search": "Dinga",
+    "savedTerms": "Amagama Alondoloziweyo",
+    "analytics": "Ukuhlaziywa",
+    "glossary": "Isichazamazwi"
+  },
+  
+  "glossaryPage": {
+    "title": "Isichazamazwi Setheminoloji",
+    "searchPlaceholder": "Dinga amagama...",
+    "allCategories": "Zonke Izigaba",
+    "categories": "Izigaba",
+    "details": "Imininingwane Yegama",
+    "showTranslations": "Tshengisa Ukuhumusha",
+    "loadingTranslations": "Iyalayisha...",
+    "translations": "Ukuhumusha",
+    "noTranslations": "Akukho ukuhumusha okutholakala kweli gama",
+    "selectTerm": "Khetha igama ukuze ubone imininingwane nokutolikwa",
+    "exportData": "Thumela Idatha",
+    "downloadData": "Dawuniloda Idatha",
+    "downloadTerms": "Dawuniloda amagama esigabeni \"{{category}}\"",
+    "downloadCurrentTerms": "Dawuniloda amagama amanje",
+    "downloadSearchResults": "Dawuniloda amagama afanayo no \"{{query}}\"",
+    "items": "izinto",
+    "csvFormat": "I-CSV Format",
+    "jsonFormat": "I-JSON Format",
+    "htmlTable": "Ithebula le-HTML",
+    "pdfDocument": "Idokhumenti ye-PDF"
+  }
+}
