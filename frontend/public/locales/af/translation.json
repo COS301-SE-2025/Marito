@@ -90,6 +90,30 @@
     "dashboard": "Dashboard",
     "search": "Soek",
     "savedTerms": "Gestoor Terme",
-    "analytics": "Analise"
+    "analytics": "Analise",
+    "glossary": "Woordelys"
+  },
+  
+  "glossaryPage": {
+    "title": "Terminologie Woordelys",
+    "searchPlaceholder": "Soek terme...",
+    "allCategories": "Alle Kategorieë",
+    "categories": "Kategorieë",
+    "details": "Term Besonderhede",
+    "showTranslations": "Wys Vertalings",
+    "loadingTranslations": "Laai tans...",
+    "translations": "Vertalings",
+    "noTranslations": "Geen vertalings beskikbaar vir hierdie term nie",
+    "selectTerm": "Kies 'n term om besonderhede en vertalings te sien",
+    "exportData": "Voer Data Uit",
+    "downloadData": "Laai Data Af",
+    "downloadTerms": "Laai die terme in kategorie \"{{category}}\" af",
+    "downloadCurrentTerms": "Laai die huidige terme af",
+    "downloadSearchResults": "Laai die terme af wat ooreenstem met \"{{query}}\"",
+    "items": "items",
+    "csvFormat": "CSV Formaat",
+    "jsonFormat": "JSON Formaat",
+    "htmlTable": "HTML Tabel",
+    "pdfDocument": "PDF Dokument"
   }
 }
