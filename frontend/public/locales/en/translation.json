@@ -92,6 +92,30 @@
     "dashboard": "Dashboard",
     "search": "Search",
     "savedTerms": "Saved Terms",
-    "analytics": "Analytics"
+    "analytics": "Analytics",
+    "glossary": "Glossary"
+  },
+  
+  "glossaryPage": {
+    "title": "Terminology Glossary",
+    "searchPlaceholder": "Search terms...",
+    "allCategories": "All Categories",
+    "categories": "Categories",
+    "details": "Term Details",
+    "showTranslations": "Show Translations",
+    "loadingTranslations": "Loading...",
+    "translations": "Translations",
+    "noTranslations": "No translations available for this term",
+    "selectTerm": "Select a term to view details and translations",
+    "exportData": "Export Data",
+    "downloadData": "Download Data",
+    "downloadTerms": "Download the terms in category \"{{category}}\"",
+    "downloadCurrentTerms": "Download the current terms",
+    "downloadSearchResults": "Download the terms matching \"{{query}}\"",
+    "items": "items",
+    "csvFormat": "CSV Format",
+    "jsonFormat": "JSON Format",
+    "htmlTable": "HTML Table",
+    "pdfDocument": "PDF Document"
   }
 }
