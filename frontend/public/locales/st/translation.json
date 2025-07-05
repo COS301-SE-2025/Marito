@@ -90,12 +90,30 @@
     "dashboard": "Tafole ya Tshebetso",
     "search": "Batla",
     "savedTerms": "Mantswe a Bolokilweng",
-    "analytics": "Ditatistiki"
+    "analytics": "Tekolo",
+    "glossary": "Bukantšu"
   },
-  "leftPane": {
-    "dashboard": "Tafole ya Tshebetso",
-    "search": "Batla",
-    "savedTerms": "Mantswe a Bolokilweng",
-    "analytics": "Tekolo"
+  
+  "glossaryPage": {
+    "title": "Bukantšu ya Mareo",
+    "searchPlaceholder": "Batla mareo...",
+    "allCategories": "Dihlopha Tsohle",
+    "categories": "Dihlopha",
+    "details": "Dintlha tsa Lentswe",
+    "showTranslations": "Bontsha Diphetolelo",
+    "loadingTranslations": "E ntse e jarwa...",
+    "translations": "Diphetolelo",
+    "noTranslations": "Ha ho na diphetolelo tse fumanehang bakeng sa lentswe lena",
+    "selectTerm": "Kgetha lentswe ho bona dintlha le diphetolelo",
+    "exportData": "Romela Datha",
+    "downloadData": "Jarolla Datha",
+    "downloadTerms": "Jarolla mantswe ka karolong \"{{category}}\"",
+    "downloadCurrentTerms": "Jarolla mantswe a hajoale",
+    "downloadSearchResults": "Jarolla mantswe a tsamaelanang le \"{{query}}\"",
+    "items": "dintho",
+    "csvFormat": "Sebopeho sa CSV",
+    "jsonFormat": "Sebopeho sa JSON",
+    "htmlTable": "Tafole ya HTML",
+    "pdfDocument": "Tokomane ya PDF"
   }
 }
