@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import SearchBar from '../components/ui/SearchBar';
 import DropdownFilter from '../components/ui/DropdownFilter';
 import ToggleSwitch from '../components/ui/ToggleSwtich';
@@ -12,43 +11,10 @@ import LeftNav from '../components/ui/LeftNav.tsx';
 import { API_ENDPOINTS } from '../config';
 import { storeTerms, getAllTerms } from '../utils/indexedDB';
 import { useDarkMode } from '../components/ui/DarkModeComponent.tsx';
-
-const languages = [
-  'Afrikaans',
-  'English',
-  'isiNdebele',
-  'isiXhosa',
-  'isiZulu',
-  'Sesotho',
-  'Setswana',
-  'siSwati',
-  'Tshivenda',
-  'Xitsonga',
-  'Sepedi',
-];
-
-interface Suggestion {
-  id: string;
-  label: string;
-}
-
-interface SearchResponse {
-  items: Term[];
-  total: number;
-}
-
-export interface Term {
-  id: string;
-  term: string;
-  language: string;
-  domain: string;
-  definition: string;
-  upvotes: number;
-  downvotes: number;
-}
+import { LANGUAGES, SearchResponse, Suggestion } from '../types/search/types.ts';
+import { Term } from '../types/terms/types.ts';
 
 const SearchPage: React.FC = () => {
-  const { t } = useTranslation();
   const [term, setTerm] = useState('');
   const [language, setLanguage] = useState('English');
   const [domain, setDomain] = useState('');
@@ -104,11 +70,11 @@ const SearchPage: React.FC = () => {
     };
 
     void runSearch();
-  }, [term, language, domain, fuzzySearch, currentPage]);
+  }, [term, language, domain, false, fuzzySearch, currentPage]);
 
   const preloadGlossary = async (): Promise<void> => {
     try {
-      const response = await fetch(API_ENDPOINTS.search);
+      const response = await fetch(`API_ENDPOINTS.search/api/v1/search/`);
       if (!response.ok) throw new Error('Failed to preload glossary');
       const terms = (await response.json()) as Term[];
       await storeTerms(terms);
@@ -139,16 +105,19 @@ const SearchPage: React.FC = () => {
       } catch (error: unknown) {
         console.error('Falling back to cached data', error);
         const cachedTerms = await getAllTerms();
-        const filtered = cachedTerms.filter((term) =>
-          term.term.toLowerCase().includes(t.toLowerCase()),
-        );
+        const filtered = cachedTerms.filter((term: Term) => {
+          return (
+            typeof term.term === 'string' &&
+            term.term.toLowerCase().includes(t.toLowerCase())
+          );
+        });
         setResults(filtered);
         setTotalPages(Math.ceil(filtered.length / pageSize));
       } finally {
         setIsLoading(false);
       }
     },
-    [language, domain, fuzzySearch],
+    [language, domain, false, fuzzySearch],
   );
 
   const fetchSuggestions = async (term: string): Promise<Suggestion[]> => {
@@ -188,7 +157,7 @@ const SearchPage: React.FC = () => {
 
   const fetchDomains = async (): Promise<string[]> => {
     try {
-      const terms = await getAllTerms();
+      const terms: Term[] = await getAllTerms();
       const domainSet = new Set<string>();
       for (const term of terms) {
         if (term.domain) domainSet.add(term.domain);
@@ -242,13 +211,13 @@ const SearchPage: React.FC = () => {
                 <div className="flex flex-wrap gap-4 items-center">
                   <div className="flex flex-wrap gap-4">
                     <DropdownFilter
-                      label={t('searchPage.language')}
-                      options={languages}
+                      label="Language"
+                      options={LANGUAGES}
                       selected={language}
                       onSelect={setLanguage}
                     />
                     <DropdownFilter
-                      label={t('searchPage.domain')}
+                      label="Domain"
                       options={domainOptions}
                       selected={domain}
                       onSelect={setDomain}
@@ -262,7 +231,7 @@ const SearchPage: React.FC = () => {
                       onChange={setAiSearch}
                     />*/}
                     <ToggleSwitch
-                      label={t('searchPage.fuzzySearch')}
+                      label="Fuzzy Search"
                       icon={<Wand2 size={16} />}
                       checked={fuzzySearch}
                       onChange={setFuzzySearch}
@@ -285,9 +254,7 @@ const SearchPage: React.FC = () => {
                           setActiveLetter(letter);
                           void handleSearch(letter);
                         }}
-                        aria-label={t('searchPage.showTermsWithLetter', {
-                          letter,
-                        })}
+                        aria-label={`Show terms starting with ${letter}`}
                         type="button"
                       >
                         {letter}
@@ -305,7 +272,7 @@ const SearchPage: React.FC = () => {
                       }}
                       className="show-btn ml-2 px-2 py-1 text-sm bg-gray-200 dark:bg-gray-700 rounded"
                     >
-                      {t('searchPage.showAll')}
+                      Show All
                     </button>
                   )}
                 </nav>
@@ -313,7 +280,7 @@ const SearchPage: React.FC = () => {
                 <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 xl:grid-cols-2">
                   {isLoading ? (
                     <p className="text-theme opacity-80 text-center w-full">
-                      {t('searchPage.loading')}
+                      Loading...
                     </p>
                   ) : results.length > 0 ? (
                     <div className="dictionary-view">
@@ -337,7 +304,7 @@ const SearchPage: React.FC = () => {
                                   downvotes={term.downvotes}
                                   definition={term.definition}
                                   onView={() => {
-                                    void navigate(`/term/${term.id}`);
+                                    void navigate(`/term/${term.language}/${term.term}/${term.id}`);
                                   }}
                                 />
                               ))}
@@ -348,7 +315,7 @@ const SearchPage: React.FC = () => {
                   ) : (
                     term && (
                       <p className="text-theme opacity-60">
-                        {t('searchPage.noResults', { term })}
+                        No results found for "{term}".
                       </p>
                     )
                   )}
@@ -364,13 +331,10 @@ const SearchPage: React.FC = () => {
                   }}
                   className="px-4 py-2 bg-theme rounded disabled:opacity-50"
                 >
-                  {t('searchPage.pagination.previous')}
+                  Previous
                 </button>
                 <span>
-                  {t('searchPage.pagination.pageInfo', {
-                    current: currentPage,
-                    total: totalPages,
-                  })}
+                  Page {currentPage} of {totalPages}
                 </span>
                 <button
                   type="button"
@@ -380,7 +344,7 @@ const SearchPage: React.FC = () => {
                   }}
                   className="px-4 py-2 bg-theme rounded disabled:opacity-50"
                 >
-                  {t('searchPage.pagination.next')}
+                  Next
                 </button>
               </div>
             </div>
