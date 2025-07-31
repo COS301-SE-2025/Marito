@@ -13,40 +13,12 @@ import TermHelpPage from './pages/help/TermHelpPage.tsx';
 import FrequentlyAskedPage from './pages/help/FrequentlyAskedPage.tsx';
 import AdminPage from './pages/AdminPage.tsx';
 import GlossaryPage from './pages/GlossaryPage.tsx';
-import { TermDetailPage } from './pages/TermDetailPage.tsx';
 import './App.css';
-
-import {
-  Chart as ChartJS,
-  PieController,
-  ArcElement,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  LineElement,
-  PointElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
-
-// Register all Chart.js components once at the application entry point
-ChartJS.register(
-  PieController,
-  ArcElement,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  LineElement,
-  PointElement,
-  Title,
-  Tooltip,
-  Legend,
-);
+import TermPage from './pages/TermPage.tsx';
 
 function App() {
   return (
-    <div className="MaritoApp">
+    <div className="MavitoApp">
       <Routes>
         <Route path="/Landing" element={<LandingPage />} />
         <Route path="/register" element={<RegistrationPage />} />
@@ -62,9 +34,16 @@ function App() {
         <Route path="/help/community-feature" element={<CommunityHelpPage />} />
         <Route path="/help/terms" element={<TermHelpPage />} />
         <Route path="/help/faqs" element={<FrequentlyAskedPage />} />
+        <Route path="/term/:language/:name/:id" element={<TermPage />} />
         <Route path="/admin" element={<AdminPage />} />
-        <Route path="/glossary" element={<GlossaryPage />} />
-        <Route path="/term/:termId" element={<TermDetailPage />} />
+        <Route
+          path="/glossary"
+          element={
+            <div style={{ margin: '-50px' }}>
+              <GlossaryPage />
+            </div>
+          }
+        />
       </Routes>
     </div>
   );
