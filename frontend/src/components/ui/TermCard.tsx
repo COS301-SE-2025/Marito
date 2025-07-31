@@ -3,6 +3,8 @@ import { ThumbsUp, ThumbsDown, Share2 } from 'lucide-react';
 import { API_ENDPOINTS } from '../../config';
 import '../../styles/TermCard.scss';
 import { addPendingVote } from '../../utils/indexedDB';
+import { Link } from 'react-router-dom';
+import { LanguageColorMap } from '../../types/search/types.ts';
 
 interface VoteApiResponse {
   term_id: string;
@@ -21,20 +23,6 @@ interface TermCardProps {
   definition: string;
   onView?: () => void;
 }
-
-const langColorMap: Record<string, string> = {
-  Afrikaans: 'blue',
-  English: 'yellow',
-  isiNdebele: 'pink',
-  isiXhosa: 'green',
-  isiZulu: 'green',
-  Sesotho: 'yellow',
-  Setswana: 'orange',
-  siSwati: 'teal',
-  Tshivenda: 'indigo',
-  Xitsonga: 'lime',
-  Sepedi: 'cyan',
-};
 
 const TermCard: React.FC<TermCardProps> = ({
   id,
@@ -65,6 +53,7 @@ const TermCard: React.FC<TermCardProps> = ({
     // Optimistic UI Update
     if (userVote === currentVoteType) {
       setUserVote(null);
+      // UPDATED: Use a standard if/else block
       if (currentVoteType === 'up') {
         setUpvotes((c) => c - 1);
       } else {
@@ -87,7 +76,7 @@ const TermCard: React.FC<TermCardProps> = ({
 
     if (navigator.onLine) {
       try {
-        const response = await fetch(API_ENDPOINTS.voteOnTerm, {
+        const response = await fetch(API_ENDPOINTS.submitVote, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -102,7 +91,6 @@ const TermCard: React.FC<TermCardProps> = ({
         setUserVote(result.user_vote);
       } catch (error) {
         console.error('Error casting vote online:', error);
-        // Revert optimistic UI update on failure
         setUserVote(previousVote);
         setUpvotes(previousUpvotes);
         setDownvotes(previousDownvotes);
@@ -124,7 +112,6 @@ const TermCard: React.FC<TermCardProps> = ({
         }
       } catch (dbError) {
         console.error('Could not queue vote in IndexedDB:', dbError);
-        // Revert optimistic UI update on failure
         setUserVote(previousVote);
         setUpvotes(previousUpvotes);
         setDownvotes(previousDownvotes);
@@ -143,7 +130,7 @@ const TermCard: React.FC<TermCardProps> = ({
             {term.length > 40 ? `${term.slice(0, 40)}...` : term}
           </h3>
           <div className="pills">
-            <span className={`pill ${langColorMap[language] || 'gray'}`}>
+            <span className={`pill ${LanguageColorMap[language] || 'gray'}`}>
               {language}
             </span>
             <span className="pill gray">
@@ -178,8 +165,9 @@ const TermCard: React.FC<TermCardProps> = ({
       <p className="term-description" title={definition}>
         {definition.length > 80 ? `${definition.slice(0, 80)}...` : definition}
       </p>
+
       <button className="view-button" onClick={() => onView?.()} type="button">
-        View
+        <Link to={`/term/${language}/${term}/${id}`}>View</Link>
       </button>
     </div>
   );
