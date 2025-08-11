@@ -14,6 +14,7 @@ import FrequentlyAskedPage from './pages/help/FrequentlyAskedPage.tsx';
 import AdminPage from './pages/AdminPage.tsx';
 import NewGlossary from './pages/NewGlossary';
 import { TermDetailPage } from './pages/TermDetailPage.tsx';
+import SettingsPage from './pages/SettingsPage';
 import './App.css';
 
 import {
@@ -63,6 +64,7 @@ function App() {
         <Route path="/help/terms" element={<TermHelpPage />} />
         <Route path="/help/faqs" element={<FrequentlyAskedPage />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
         <Route path="/glossary" element={<NewGlossary />} />
         <Route path="/term/:termId" element={<TermDetailPage />} />
       </Routes>

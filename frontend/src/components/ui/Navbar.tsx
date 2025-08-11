@@ -42,6 +42,7 @@ const Navbar = () => {
       t('navigation.savedTerms'),
       t('navigation.dashboard'),
       t('navigation.help'),
+      t('navigation.settings'),
     ],
     [t],
   );
@@ -57,6 +58,8 @@ const Navbar = () => {
         return '/glossary';
       case 'Dashboard':
         return '/analytics';
+      case 'Settings':
+        return '/settings';
       default:
         return `/${item.toLowerCase().replace(/\s/g, '-')}`;
     }

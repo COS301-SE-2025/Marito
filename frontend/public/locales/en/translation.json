@@ -85,8 +85,21 @@
     "savedTerms": "Saved Terms",
     "dashboard": "Dashboard",
     "help": "Help",
+    "settings": "Settings",
     "darkMode": "Dark Mode",
     "lightMode": "Light Mode"
+  },
+
+  "settings": {
+    "title": "Settings",
+    "appearance": "Appearance",
+    "darkMode": "Dark Mode",
+    "darkModeDesc": "Switch between light and dark themes",
+    "notifications": "Notifications",
+    "emailNotifications": "Email Notifications",
+    "emailNotificationsDesc": "Receive notifications about new terms and updates",
+    "desktopNotifications": "Desktop Notifications",
+    "desktopNotificationsDesc": "Show desktop notifications for important updates"
   },
 
   "dashboard": {

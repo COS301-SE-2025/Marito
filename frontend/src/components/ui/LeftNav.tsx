@@ -24,6 +24,7 @@ const LeftNav: React.FC<LeftNavProps> = ({ activeItem, setActiveItem }) => {
     { id: 'saved', label: t('navigation.savedTerms'), path: '/saved-terms' },
     { id: 'analytics', label: t('navigation.dashboard'), path: '/analytics' },
     { id: 'help', label: t('navigation.help'), path: '/help' },
+    { id: 'settings', label: t('navigation.settings'), path: '/settings' },
   ];
 
   const handleItemClick = (itemId: string, path: string) => {
