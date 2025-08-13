@@ -17,6 +17,7 @@ import NewGlossary from './pages/NewGlossary';
 import LinguistApplicationPage from './pages/LinguistApplicationPage.tsx';
 import { TermDetailPage } from './pages/TermDetailPage.tsx';
 import FeedbackHub from './pages/FeedbackHub';
+import SettingsPage from './pages/SettingsPage';
 import './App.css';
 
 import {
@@ -75,6 +76,7 @@ function App() {
         />
         <Route path="/workspace" element={<WorkspacePage />} />
         <Route path="/feedbackhub" element={<FeedbackHub />} />
+        <Route path="/settings" element={<SettingsPage />} />
       </Routes>
     </div>
   );

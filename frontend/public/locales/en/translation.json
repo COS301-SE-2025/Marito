@@ -130,7 +130,20 @@
     "dashboard": "Dashboard",
     "help": "Help",
     "darkMode": "Dark Mode",
-    "lightMode": "Light Mode"
+    "lightMode": "Light Mode",
+    "settings": "Settings"
+  },
+
+  "settings": {
+    "title": "Settings",
+    "general": "General Settings",
+    "account": "Account Settings",
+    "language": "Language Settings",
+    "notifications": "Notifications",
+    "privacy": "Privacy Settings",
+    "theme": "Theme Settings",
+    "save": "Save Changes",
+    "cancel": "Cancel"
   },
 
   "dashboard": {
