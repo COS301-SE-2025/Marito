@@ -25,7 +25,6 @@ const appSupportedLanguages = [
 interface SettingsState {
   textSize: number;
   textSpacing: number;
-  colorBlindMode: boolean;
   highContrastMode: boolean;
   darkMode: boolean;
   selectedLanguage: string;
@@ -40,7 +39,6 @@ const SettingsPage: React.FC = () => {
     const defaultSettings = {
       textSize: 16,
       textSpacing: 1,
-      colorBlindMode: false,
       highContrastMode: false,
       darkMode: false,
       selectedLanguage: i18n.resolvedLanguage || 'en'
@@ -65,13 +63,6 @@ const SettingsPage: React.FC = () => {
     document.documentElement.style.setProperty('--base-text-size', `${settings.textSize}px`);
     document.documentElement.style.setProperty('--text-scaling', `${settings.textSize/16}`);
     document.documentElement.style.setProperty('--text-spacing', `${settings.textSpacing}`);
-    
-    // Apply color blind mode
-    if (settings.colorBlindMode) {
-      document.documentElement.setAttribute('data-colorblind-mode', 'true');
-    } else {
-      document.documentElement.removeAttribute('data-colorblind-mode');
-    }
     
     // Apply high contrast mode
     if (settings.highContrastMode) {
@@ -158,11 +149,6 @@ const SettingsPage: React.FC = () => {
 
   // Apply initial settings on component mount
   useEffect(() => {
-    // Apply color blind mode if enabled
-    if (settings.colorBlindMode) {
-      document.documentElement.setAttribute('data-colorblind-mode', 'true');
-    }
-    
     // Apply high contrast mode if enabled
     if (settings.highContrastMode) {
       document.documentElement.setAttribute('data-high-contrast-mode', 'true');
@@ -181,7 +167,6 @@ const SettingsPage: React.FC = () => {
           ...prev,
           textSize: parsedUserSettings.textSize || 16,
           textSpacing: parsedUserSettings.textSpacing || 1,
-          colorBlindMode: parsedUserSettings.colorBlindMode || false,
           highContrastMode: parsedUserSettings.highContrastMode || false,
           darkMode: isDarkMode
         }));
@@ -205,7 +190,6 @@ const SettingsPage: React.FC = () => {
     const settingsToSave = {
       textSize: settings.textSize,
       textSpacing: settings.textSpacing,
-      colorBlindMode: settings.colorBlindMode,
       highContrastMode: settings.highContrastMode
     };
     localStorage.setItem('accessibilitySettings', JSON.stringify(settingsToSave));
@@ -214,20 +198,13 @@ const SettingsPage: React.FC = () => {
     document.documentElement.style.setProperty('--base-text-size', `${settings.textSize}px`);
     document.documentElement.style.setProperty('--text-spacing', settings.textSpacing.toString());
     
-    // Apply color blind mode
-    if (settings.colorBlindMode) {
-      document.documentElement.setAttribute('data-colorblind-mode', 'true');
-    } else {
-      document.documentElement.removeAttribute('data-colorblind-mode');
-    }
-    
     // Apply high contrast mode
     if (settings.highContrastMode) {
       document.documentElement.setAttribute('data-high-contrast-mode', 'true');
     } else {
       document.documentElement.removeAttribute('data-high-contrast-mode');
     }
-  }, [settings.textSize, settings.textSpacing, settings.colorBlindMode, settings.highContrastMode]);
+  }, [settings.textSize, settings.textSpacing, settings.highContrastMode]);
 
   return (
     <div className={`dashboard-container ${isDarkMode ? 'theme-dark' : 'theme-light'}`}>
@@ -334,11 +311,6 @@ const SettingsPage: React.FC = () => {
                 icon={<Palette className="section-icon" />}
                 showChevron={false}
               >
-                <ToggleSwitch
-                  label="Colour Blind Mode"
-                  checked={settings.colorBlindMode}
-                  onChange={(checked) => handleSettingChange('colorBlindMode', checked)}
-                />
                 <ToggleSwitch
                   label="High Contrast Mode"
                   checked={settings.highContrastMode}
