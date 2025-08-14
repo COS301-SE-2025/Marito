@@ -66,6 +66,20 @@ const SettingsPage: React.FC = () => {
     document.documentElement.style.setProperty('--text-scaling', `${settings.textSize/16}`);
     document.documentElement.style.setProperty('--text-spacing', `${settings.textSpacing}`);
     
+    // Apply color blind mode
+    if (settings.colorBlindMode) {
+      document.documentElement.setAttribute('data-colorblind-mode', 'true');
+    } else {
+      document.documentElement.removeAttribute('data-colorblind-mode');
+    }
+    
+    // Apply high contrast mode
+    if (settings.highContrastMode) {
+      document.documentElement.setAttribute('data-high-contrast-mode', 'true');
+    } else {
+      document.documentElement.removeAttribute('data-high-contrast-mode');
+    }
+    
     // Save to localStorage whenever settings change
     localStorage.setItem('userSettings', JSON.stringify(settings));
   }, [settings]); // Now watching settings for changes
@@ -142,10 +156,39 @@ const SettingsPage: React.FC = () => {
   const [isMobile] = useState(window.innerWidth <= 768);
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
+  // Apply initial settings on component mount
+  useEffect(() => {
+    // Apply color blind mode if enabled
+    if (settings.colorBlindMode) {
+      document.documentElement.setAttribute('data-colorblind-mode', 'true');
+    }
+    
+    // Apply high contrast mode if enabled
+    if (settings.highContrastMode) {
+      document.documentElement.setAttribute('data-high-contrast-mode', 'true');
+    }
+  }, []); // Run once on mount
+
   // Load settings from localStorage
   React.useEffect(() => {
     const savedSettings = localStorage.getItem('accessibilitySettings');
-    if (savedSettings) {
+    const savedUserSettings = localStorage.getItem('userSettings');
+    
+    if (savedUserSettings) {
+      try {
+        const parsedUserSettings = JSON.parse(savedUserSettings);
+        setSettings(prev => ({
+          ...prev,
+          textSize: parsedUserSettings.textSize || 16,
+          textSpacing: parsedUserSettings.textSpacing || 1,
+          colorBlindMode: parsedUserSettings.colorBlindMode || false,
+          highContrastMode: parsedUserSettings.highContrastMode || false,
+          darkMode: isDarkMode
+        }));
+      } catch (e) {
+        console.error('Failed to parse user settings:', e);
+      }
+    } else if (savedSettings) {
       const parsedSettings = JSON.parse(savedSettings);
       setSettings(prev => ({
         ...prev,
@@ -154,21 +197,37 @@ const SettingsPage: React.FC = () => {
         darkMode: isDarkMode
       }));
     }
-  }, []);
+  }, [isDarkMode]);
 
   // Save settings to localStorage and apply them
   React.useEffect(() => {
     // Save to localStorage
     const settingsToSave = {
       textSize: settings.textSize,
-      textSpacing: settings.textSpacing
+      textSpacing: settings.textSpacing,
+      colorBlindMode: settings.colorBlindMode,
+      highContrastMode: settings.highContrastMode
     };
     localStorage.setItem('accessibilitySettings', JSON.stringify(settingsToSave));
 
     // Apply settings
     document.documentElement.style.setProperty('--base-text-size', `${settings.textSize}px`);
     document.documentElement.style.setProperty('--text-spacing', settings.textSpacing.toString());
-  }, [settings.textSize, settings.textSpacing]);
+    
+    // Apply color blind mode
+    if (settings.colorBlindMode) {
+      document.documentElement.setAttribute('data-colorblind-mode', 'true');
+    } else {
+      document.documentElement.removeAttribute('data-colorblind-mode');
+    }
+    
+    // Apply high contrast mode
+    if (settings.highContrastMode) {
+      document.documentElement.setAttribute('data-high-contrast-mode', 'true');
+    } else {
+      document.documentElement.removeAttribute('data-high-contrast-mode');
+    }
+  }, [settings.textSize, settings.textSpacing, settings.colorBlindMode, settings.highContrastMode]);
 
   return (
     <div className={`dashboard-container ${isDarkMode ? 'theme-dark' : 'theme-light'}`}>
