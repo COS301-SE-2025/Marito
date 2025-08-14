@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronRight, User, Globe, Eye, Palette } from 'lucide-react';
 import { useDarkMode } from '../components/ui/DarkModeComponent';
 import LeftNav from '../components/ui/LeftNav';
@@ -34,17 +34,47 @@ interface SettingsState {
 const SettingsPage: React.FC = () => {
   const { i18n, t } = useTranslation();
 
-  const [settings, setSettings] = useState<SettingsState>({
-    textSize: 16,
-    textSpacing: 1,
-    colorBlindMode: false,
-    highContrastMode: false,
-    darkMode: false,
-    selectedLanguage: i18n.resolvedLanguage || 'en'
+  const [settings, setSettings] = useState<SettingsState>(() => {
+    // Try to load settings from localStorage
+    const savedSettings = localStorage.getItem('userSettings');
+    const defaultSettings = {
+      textSize: 16,
+      textSpacing: 1,
+      colorBlindMode: false,
+      highContrastMode: false,
+      darkMode: false,
+      selectedLanguage: i18n.resolvedLanguage || 'en'
+    };
+
+    if (savedSettings) {
+      try {
+        const parsed = JSON.parse(savedSettings);
+        // Merge with default settings to ensure all properties exist
+        return { ...defaultSettings, ...parsed };
+      } catch (e) {
+        console.error('Failed to parse saved settings:', e);
+        return defaultSettings;
+      }
+    }
+
+    return defaultSettings;
   });
 
+  useEffect(() => {
+    // Apply settings whenever they change
+    document.documentElement.style.setProperty('--base-text-size', `${settings.textSize}px`);
+    document.documentElement.style.setProperty('--text-scaling', `${settings.textSize/16}`);
+    document.documentElement.style.setProperty('--text-spacing', `${settings.textSpacing}`);
+    
+    // Save to localStorage whenever settings change
+    localStorage.setItem('userSettings', JSON.stringify(settings));
+  }, [settings]); // Now watching settings for changes
+
   const handleSettingChange = (key: keyof SettingsState, value: any) => {
-    setSettings(prev => ({ ...prev, [key]: value }));
+    setSettings(prev => ({
+      ...prev,
+      [key]: value
+    }));
   };
 
   const SettingsSection: React.FC<{ 
@@ -72,17 +102,15 @@ const SettingsPage: React.FC = () => {
     checked: boolean;
     onChange: (checked: boolean) => void;
   }> = ({ label, checked, onChange }) => (
-    <div className="toggle-item">
+    <label className="toggle-switch">
       <span className="toggle-label">{label}</span>
-      <label className="toggle-switch">
-        <input
-          type="checkbox"
-          checked={checked}
-          onChange={(e) => onChange(e.target.checked)}
-        />
-        <span className="toggle-slider"></span>
-      </label>
-    </div>
+      <div
+        className={`switch ${checked ? 'checked' : ''}`}
+        onClick={() => onChange(!checked)}
+      >
+        <div className="thumb" />
+      </div>
+    </label>
   );
 
   const SliderControl: React.FC<{

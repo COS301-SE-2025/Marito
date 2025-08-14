@@ -2,21 +2,22 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
-  padding: 0.4rem;
+  gap: calc(0.75rem * var(--text-spacing, 1));
+  padding: calc(0.4rem * var(--text-spacing, 1));
   border-radius: 9999px;
   color: var(--text-theme);
   transition:
     background-color 0.3s,
     border-color 0.3s,
     color 0.3s;
+  margin-bottom: calc(0.5rem * var(--text-spacing, 1));
 
   .toggle-label {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: calc(0.4rem * var(--text-spacing, 1));
     font-weight: 500;
-    font-size: 0.9rem;
+    font-size: calc(0.9rem * var(--text-scaling, 1));
 
     .icon {
       display: flex;

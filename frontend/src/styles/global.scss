@@ -1,6 +1,8 @@
 :root {
   --base-text-size: 16px;
   --text-spacing: 1;
+  --text-scaling: 1;
+  --nav-base-size: 16px;
 }
 
 /* Apply text size and spacing globally */
@@ -11,30 +13,65 @@ html {
 body {
   line-height: calc(1.5 * var(--text-spacing));
   letter-spacing: calc(0.01em * var(--text-spacing));
+  word-spacing: calc(0.05em * var(--text-spacing));
+}
+
+/* Navigation specific scaling */
+nav, .navbar, .left-nav, .left-nav-menu-item, .navbar-content {
+  font-size: calc(1rem * var(--text-scaling)) !important;
+
+  * {
+    font-size: inherit;
+  }
+
+  .navbar-title, .navbar-user-controls, .left-nav-menu-label {
+    font-size: calc(1rem * var(--text-scaling)) !important;
+  }
+
+  svg, .icon {
+    width: calc(1em * var(--text-scaling)) !important;
+    height: calc(1em * var(--text-scaling)) !important;
+  }
 }
 
 /* Apply text size and spacing to common text elements */
 p, span, div, button, input, select, textarea, a, li, td, th {
-  font-size: 1rem; /* This will be relative to the root font size */
+  font-size: calc(1rem * var(--text-scaling));
 }
 
 h1 {
-  font-size: calc(2rem * var(--text-spacing));
+  font-size: calc(2rem * var(--text-scaling));
+  margin-bottom: calc(0.5em * var(--text-spacing));
 }
 
 h2 {
-  font-size: calc(1.5rem * var(--text-spacing));
+  font-size: calc(1.5rem * var(--text-scaling));
+  margin-bottom: calc(0.5em * var(--text-spacing));
 }
 
 h3 {
-  font-size: calc(1.25rem * var(--text-spacing));
+  font-size: calc(1.25rem * var(--text-scaling));
+  margin-bottom: calc(0.5em * var(--text-spacing));
 }
 
 h4 {
-  font-size: calc(1.125rem * var(--text-spacing));
+  font-size: calc(1.125rem * var(--text-scaling));
+  margin-bottom: calc(0.5em * var(--text-spacing));
 }
 
 /* Adjust spacing between text elements */
 p, li {
   margin-bottom: calc(1em * var(--text-spacing));
+}
+
+/* Apply text spacing to navigation and interactive elements */
+.nav-item, .menu-item {
+  margin: calc(0.5em * var(--text-spacing));
+  padding: calc(0.5em * var(--text-spacing));
+}
+
+/* Scale labels and form elements */
+label, .form-label {
+  font-size: calc(0.875rem * var(--text-scaling));
+  margin-bottom: calc(0.25em * var(--text-spacing));
 }
