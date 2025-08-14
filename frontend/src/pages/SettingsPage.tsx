@@ -3,8 +3,24 @@ import { ChevronRight, User, Globe, Eye, Palette } from 'lucide-react';
 import { useDarkMode } from '../components/ui/DarkModeComponent';
 import LeftNav from '../components/ui/LeftNav';
 import Navbar from '../components/ui/Navbar';
+import { useTranslation } from 'react-i18next';
 import '../styles/DashboardPage.scss';
 import '../styles/SettingsPage.scss';
+
+// Import the same language list used in LanguageSwitcher
+const appSupportedLanguages = [
+  { code: 'en', name: 'English' },
+  { code: 'zu', name: 'isiZulu' },
+  { code: 'af', name: 'Afrikaans' },
+  { code: 'st', name: 'Sesotho' },
+  { code: 'xh', name: 'isiXhosa' },
+  { code: 'nso', name: 'Sepedi' },
+  { code: 'tn', name: 'Setswana' },
+  { code: 'ss', name: 'Siswati' },
+  { code: 've', name: 'Tshivenda' },
+  { code: 'ts', name: 'Xitsonga' },
+  { code: 'nr', name: 'isiNdebele' },
+];
 
 interface SettingsState {
   textSize: number;
@@ -16,28 +32,16 @@ interface SettingsState {
 }
 
 const SettingsPage: React.FC = () => {
+  const { i18n, t } = useTranslation();
+
   const [settings, setSettings] = useState<SettingsState>({
     textSize: 16,
     textSpacing: 1,
     colorBlindMode: false,
     highContrastMode: false,
     darkMode: false,
-    selectedLanguage: 'English'
+    selectedLanguage: i18n.resolvedLanguage || 'en'
   });
-
-  const southAfricanLanguages = [
-    'English',
-    'Afrikaans',
-    'isiZulu',
-    'isiXhosa',
-    'Sepedi',
-    'Setswana',
-    'Sesotho',
-    'Xitsonga',
-    'siSwati',
-    'Tshivenda',
-    'isiNdebele'
-  ];
 
   const handleSettingChange = (key: keyof SettingsState, value: any) => {
     setSettings(prev => ({ ...prev, [key]: value }));
@@ -162,16 +166,26 @@ const SettingsPage: React.FC = () => {
             >
               <div className="language-selector">
                 <label htmlFor="language-select" className="language-label">
-                  Select your preferred language
+                  {t('settings.selectLanguage', 'Select your preferred language')}
                 </label>
                 <select
                   id="language-select"
                   value={settings.selectedLanguage}
-                  onChange={(e) => handleSettingChange('selectedLanguage', e.target.value)}
+                  onChange={async (e) => {
+                    const languageCode = e.target.value;
+                    try {
+                      await i18n.changeLanguage(languageCode);
+                      document.documentElement.lang = languageCode;
+                      localStorage.setItem('i18nextLng', languageCode);
+                      handleSettingChange('selectedLanguage', languageCode);
+                    } catch (err) {
+                      console.error('Error changing language:', err);
+                    }
+                  }}
                   className="language-dropdown"
                 >
-                  {southAfricanLanguages.map(lang => (
-                    <option key={lang} value={lang}>{lang}</option>
+                  {appSupportedLanguages.map(lang => (
+                    <option key={lang.code} value={lang.code}>{lang.name}</option>
                   ))}
                 </select>
               </div>
@@ -229,7 +243,7 @@ const SettingsPage: React.FC = () => {
                 <ToggleSwitch
                   label="Dark Mode"
                   checked={isDarkMode}
-                  onChange={(checked) => {
+                  onChange={() => {
                     toggleDarkMode();
                   }}
                 />
