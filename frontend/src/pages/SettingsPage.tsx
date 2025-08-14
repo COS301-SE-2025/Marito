@@ -114,13 +114,30 @@ const SettingsPage: React.FC = () => {
   const [isMobile] = useState(window.innerWidth <= 768);
   const { isDarkMode, toggleDarkMode } = useDarkMode();
 
-  // Initialize dark mode state from global theme
+  // Load settings from localStorage
   React.useEffect(() => {
-    setSettings(prev => ({ ...prev, darkMode: isDarkMode }));
+    const savedSettings = localStorage.getItem('accessibilitySettings');
+    if (savedSettings) {
+      const parsedSettings = JSON.parse(savedSettings);
+      setSettings(prev => ({
+        ...prev,
+        textSize: parsedSettings.textSize || 16,
+        textSpacing: parsedSettings.textSpacing || 1,
+        darkMode: isDarkMode
+      }));
+    }
   }, []);
 
-  // Effect to apply text size and spacing
+  // Save settings to localStorage and apply them
   React.useEffect(() => {
+    // Save to localStorage
+    const settingsToSave = {
+      textSize: settings.textSize,
+      textSpacing: settings.textSpacing
+    };
+    localStorage.setItem('accessibilitySettings', JSON.stringify(settingsToSave));
+
+    // Apply settings
     document.documentElement.style.setProperty('--base-text-size', `${settings.textSize}px`);
     document.documentElement.style.setProperty('--text-spacing', settings.textSpacing.toString());
   }, [settings.textSize, settings.textSpacing]);

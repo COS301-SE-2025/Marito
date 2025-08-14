@@ -18,6 +18,7 @@ import LinguistApplicationPage from './pages/LinguistApplicationPage.tsx';
 import { TermDetailPage } from './pages/TermDetailPage.tsx';
 import FeedbackHub from './pages/FeedbackHub';
 import SettingsPage from './pages/SettingsPage';
+import './styles/global.scss';
 import './App.css';
 
 import {

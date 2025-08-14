@@ -1,0 +1,40 @@
+:root {
+  --base-text-size: 16px;
+  --text-spacing: 1;
+}
+
+/* Apply text size and spacing globally */
+html {
+  font-size: var(--base-text-size);
+}
+
+body {
+  line-height: calc(1.5 * var(--text-spacing));
+  letter-spacing: calc(0.01em * var(--text-spacing));
+}
+
+/* Apply text size and spacing to common text elements */
+p, span, div, button, input, select, textarea, a, li, td, th {
+  font-size: 1rem; /* This will be relative to the root font size */
+}
+
+h1 {
+  font-size: calc(2rem * var(--text-spacing));
+}
+
+h2 {
+  font-size: calc(1.5rem * var(--text-spacing));
+}
+
+h3 {
+  font-size: calc(1.25rem * var(--text-spacing));
+}
+
+h4 {
+  font-size: calc(1.125rem * var(--text-spacing));
+}
+
+/* Adjust spacing between text elements */
+p, li {
+  margin-bottom: calc(1em * var(--text-spacing));
+}
